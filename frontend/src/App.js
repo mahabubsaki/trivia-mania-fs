@@ -5,20 +5,19 @@ import { RouterProvider } from 'react-router-dom';
 import { routes } from './utils/routes';
 import OutletLoader from './utils/OutletLoader';
 import { colors } from './utils/Constants';
-Aos.init();
+import 'aos/dist/aos.css';
+Aos.init({ offset: 120, duration: 500, });
+
 
 function App() {
   useEffect(() => {
-    const x = setInterval(() => {
+    setTimeout(() => {
       Aos.refresh();
-    }, 0);
-    return () => {
-      clearInterval(x);
-    };
+    });
   }, []);
   return (
     <div className="App bg-[#F9F2ED]">
-      <div style={{ backgroundColor: colors.neutral }} className='w-full lg:w-[90%] mx-auto border'>
+      <div style={{ backgroundColor: colors.neutral }} className='w-full lg:w-[92%] mx-auto border'>
         <RouterProvider router={routes} fallbackElement={<OutletLoader />} />
       </div>
     </div>

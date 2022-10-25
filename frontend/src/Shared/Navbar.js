@@ -1,8 +1,8 @@
-import { Button, useDisclosure, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerOverlay, Input } from '@chakra-ui/react';
+import { Button, useDisclosure, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerOverlay, Input, FormControl, FormLabel, Switch } from '@chakra-ui/react';
 import React, { useEffect, useRef, useState } from 'react';
 import { colors, navlinks } from '../utils/Constants';
 import { RiMenu3Fill } from 'react-icons/ri';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ActiveRoute from '../utils/ActiveRoute';
 function getWindowDimensions() {
     const { innerWidth: width } = window;
@@ -11,6 +11,7 @@ function getWindowDimensions() {
 
 const Navbar = () => {
     const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+    const [checked, setChecked] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -30,7 +31,7 @@ const Navbar = () => {
     const btnRef = useRef();
     return (
 
-        <nav style={{ backgroundColor: colors.secondary }} className='py-5 px-4 duration-300 flex border rounded shadow-lg justify-between items-center'>
+        <nav style={{ backgroundColor: colors.secondary }} className='py-5 sticky top-0 z-[2] px-3 duration-300 flex border rounded shadow-lg justify-between items-center'>
             <p style={{ color: colors.primary }} className='Logo text-3xl italic font-bold'>
                 TriviaMania
             </p>
@@ -51,6 +52,11 @@ const Navbar = () => {
 
                     <DrawerBody>
                         <div className='flex flex-col items-center gap-5 pt-5 mt-6'>
+                            <div>
+                                <FormControl>
+                                    <Switch size={'lg'} onChange={(e) => setChecked(e.target.checked)} title={`${checked ? 'Switch to Light Mode' : 'Switch to Dark Mode'}`} marginLeft={'auto'} marginRight={'auto'} id='dark-mode' />
+                                </FormControl>
+                            </div>
                             {navlinks.map((links, index) => <ActiveRoute key={index} to={links.route}>{links.name}</ActiveRoute>)}
                             <Button colorScheme='teal' onClick={() => navigate('/login')}>Log In</Button>
                             <Button colorScheme='teal' variant={'outline'} onClick={() => navigate('/register')}>Register</Button>
@@ -58,7 +64,12 @@ const Navbar = () => {
                     </DrawerBody>
                 </DrawerContent>
             </Drawer>
-            <div className={`md:flex hidden items-center justify-center gap-4`}>
+            <div className={`md:flex hidden items-center justify-center gap-[14px]`}>
+                <div>
+                    <FormControl>
+                        <Switch size={'lg'} onChange={(e) => setChecked(e.target.checked)} title={`${checked ? 'Switch to Light Mode' : 'Switch to Dark Mode'}`} marginLeft={'auto'} marginRight={'auto'} id='dark-mode' />
+                    </FormControl>
+                </div>
                 {navlinks.map((links, index) => <ActiveRoute key={index} to={links.route}>{links.name}</ActiveRoute>)}
                 <Button colorScheme='teal' onClick={() => navigate('/login')}>Log In</Button>
                 <Button colorScheme='teal' variant={'outline'} onClick={() => navigate('/register')}>Register</Button>

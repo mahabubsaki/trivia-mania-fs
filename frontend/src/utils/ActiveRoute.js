@@ -8,7 +8,7 @@ const ActiveRoute = ({ to, children, ...props }) => {
         <Link
             to={to}
             {...props}
-            className={`cursor-pointer duration-300 font-semibold text-lg ${match ? 'text-accent border-b-[2px] pb-1 px-1 border-accent' : 'hover:text-accent'}`}
+            className={`cursor-pointer duration-300 font-semibold ${match ? 'text-accent border-b-[2px] pb-1 px-1 border-accent' : 'hover:text-accent'}`}
         >
             {children}
         </Link>

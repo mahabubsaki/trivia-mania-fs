@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import About from "../Components/About";
 import Home from "../Components/Home";
 import Login from "../Components/Login";
 import Profile from "../Components/Profile";
@@ -15,10 +14,6 @@ export const routes = createBrowserRouter([
             {
                 path: "/",
                 element: <Home />
-            },
-            {
-                path: "/about",
-                element: <About />
             },
             {
                 path: "/quizes",

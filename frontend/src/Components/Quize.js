@@ -8,6 +8,7 @@ const Quize = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { name, logo, questions, time, total } = data;
     const [myTime, setMytime] = useState(time * 60);
+
     const [totaCorrect, setTotalCorrect] = useState(0);
     const [start, setStart] = useState(false);
     useEffect(() => {

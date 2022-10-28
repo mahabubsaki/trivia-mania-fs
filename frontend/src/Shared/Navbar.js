@@ -4,6 +4,7 @@ import { colors, navlinks } from '../utils/Constants';
 import { RiMenu3Fill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import ActiveRoute from '../utils/ActiveRoute';
+import Switcher from '../utils/Switcher';
 function getWindowDimensions() {
     const { innerWidth: width } = window;
     return width;
@@ -53,9 +54,7 @@ const Navbar = () => {
                     <DrawerBody>
                         <div className='flex flex-col items-center gap-5 pt-5 mt-6'>
                             <div>
-                                <FormControl>
-                                    <Switch size={'lg'} onChange={(e) => setChecked(e.target.checked)} title={`${checked ? 'Switch to Light Mode' : 'Switch to Dark Mode'}`} marginLeft={'auto'} marginRight={'auto'} id='dark-mode' />
-                                </FormControl>
+                                <Switcher />
                             </div>
                             {navlinks.map((links, index) => <ActiveRoute key={index} to={links.route}>{links.name}</ActiveRoute>)}
                             <Button colorScheme='teal' onClick={() => navigate('/login')}>Log In</Button>
@@ -66,9 +65,8 @@ const Navbar = () => {
             </Drawer>
             <div className={`md:flex hidden items-center justify-center gap-[14px]`}>
                 <div>
-                    <FormControl>
-                        <Switch size={'lg'} onChange={(e) => setChecked(e.target.checked)} title={`${checked ? 'Switch to Light Mode' : 'Switch to Dark Mode'}`} marginLeft={'auto'} marginRight={'auto'} id='dark-mode' />
-                    </FormControl>
+                    <Switcher />
+
                 </div>
                 {navlinks.map((links, index) => <ActiveRoute key={index} to={links.route}>{links.name}</ActiveRoute>)}
                 <Button colorScheme='teal' onClick={() => navigate('/login')}>Log In</Button>

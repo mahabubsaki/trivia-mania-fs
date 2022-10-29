@@ -3,14 +3,14 @@ import { Button, Checkbox } from '@chakra-ui/react';
 import { ImCross } from 'react-icons/im';
 import Options from './Options';
 
-const EachQuize = ({ questions, setTotalCorrect, onOpen }) => {
+const EachQuize = ({ questions, setTotalCorrect, onOpen, finish, setFinish, restart }) => {
     const [quizeNo, setQuizNo] = useState(0);
     const [count, setCount] = useState(0);
     const [clicked, setClicked] = useState(false);
     const [correct, setCorrect] = useState(false);
     const [alreadySelected, setAlreadySelected] = useState([]);
 
-    const [finish, setFinish] = useState(false);
+
     const [choosedOption, setChoosedOption] = useState('');
     const { correctAnswer, options, question } = questions[quizeNo] || {};
     console.log(quizeNo, questions.length);
@@ -20,6 +20,16 @@ const EachQuize = ({ questions, setTotalCorrect, onOpen }) => {
 
         setChoosedOption('');
     }, [quizeNo]);
+    useEffect(() => {
+        if (restart) {
+            setQuizNo(0);
+            setCount(0);
+            setClicked(false);
+            setCorrect(false);
+            setAlreadySelected([]);
+            setChoosedOption('');
+        }
+    }, [restart]);
     const w = `${((quizeNo + 1) / questions.length) * 100}%`;
     return (
         <div className='shadow-xl my-5 rounded-xl p-7 border w-full lg:w-[90%] mx-auto'>

@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import EachQuize from './EachQuize';
-import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure, useToast } from '@chakra-ui/react';
+import { Button, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure, useToast } from '@chakra-ui/react';
+import winnerGif from '../Assets/91644-premium-quality.gif';
+import gitGif from '../Assets/81356-github-icon.gif';
+import jsGif from '../Assets/111794-javascript.gif';
+import reactGif from '../Assets/296-react-logo.gif';
+import cssGif from '../Assets/63207-css3.gif';
+import { GrLinkPrevious, GrLinkNext } from 'react-icons/gr';
 
 const Quize = () => {
     const data = useLoaderData();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { name, logo, questions, time, total } = data;
     const [myTime, setMytime] = useState(time * 60);
+    const [finish, setFinish] = useState(false);
+    const [restart, setRestart] = useState(false);
+    const navigate = useNavigate();
 
     const [totaCorrect, setTotalCorrect] = useState(0);
     const [start, setStart] = useState(false);
@@ -19,11 +28,15 @@ const Quize = () => {
                 setMytime((pre) => pre - 1);
             }, 1000);
         }
+        if (finish) {
+            setRestart(false);
+            clearInterval(y);
+        }
         return () => {
             x = false;
             clearInterval(y);
         };
-    }, [start]);
+    }, [start, finish]);
     useEffect(() => {
         if (myTime === 0) {
             onOpen();
@@ -54,7 +67,7 @@ const Quize = () => {
                         <p className='text-5xl text-center font-bold text-white'>{totaCorrect} / {total}</p>
                     </div>
                 </div>
-                <EachQuize onOpen={onOpen} questions={questions} setTotalCorrect={setTotalCorrect} />
+                <EachQuize restart={restart} finish={finish} setFinish={setFinish} onOpen={onOpen} questions={questions} setTotalCorrect={setTotalCorrect} />
 
             </>}
             <Modal closeOnOverlayClick={false} motionPreset='slideInBottom' isCentered isOpen={isOpen} onClose={onClose}>
@@ -63,17 +76,28 @@ const Quize = () => {
                     backdropFilter='blur(10px) hue-rotate(90deg)'
                 />
                 <ModalContent>
-                    <ModalHeader>{name} Quize Performance</ModalHeader>
+                    <ModalHeader fontSize={'3xl'}>{name} Quize Performance</ModalHeader>
                     <ModalCloseButton onClick={() => {
+                        setRestart(true);
                         setMytime(time * 60);
                         setStart(false);
                         setTotalCorrect(0);
+                        setFinish(false);
                     }} />
                     <ModalBody>
-                        <Text>Custom backdrop filters!</Text>
+                        {name === 'Git' && <Image marginX={'auto'} marginY={15} width={100} src={gitGif} />}
+                        {name === 'JavaScript' && <Image marginX={'auto'} marginY={15} width={100} src={jsGif} />}
+                        {name === 'React' && <Image marginX={'auto'} marginY={15} width={100} src={reactGif} />}
+                        {name === 'CSS' && <Image marginX={'auto'} marginY={15} width={100} src={cssGif} />}
+                        <Text fontSize={'xl'}>Time Estemated : <span className='font-bold italic text-primary'>{(parseInt((time * 60 - myTime) / 60)) > 0 && (parseInt(time * 60 - myTime) / 60)} {(parseInt((time * 60 - myTime) / 60)) > 0 && 'Minutes'} {time * 60 - myTime} Seconds </span></Text>
+                        <Text fontSize={'xl'}>Correct Answers : <span className='font-bold italic text-primary'>{totaCorrect} / {questions.length}</span></Text>
+                        <Text fontSize={'xl'}>Marks in Percentage : <span className='font-bold italic text-primary'>{parseInt((totaCorrect / questions.length) * 100)}%</span></Text>
+                        <Text fontSize={'xl'}>Seconds Per Quiz : <span className='font-bold italic text-primary'>{((time * 60 - myTime) / totaCorrect).toFixed(2)}</span></Text>
+                        <Image src={winnerGif} />
                     </ModalBody>
-                    <ModalFooter>
-                        <Button onClick={onClose}>Close</Button>
+                    <ModalFooter display={'flex'} justifyContent={'space-between'}>
+                        <Button onClick={() => navigate('/quizes')} variant={'outline'} colorScheme='teal' alignItems={'center'} gap={3} display={'flex'}><GrLinkPrevious /><span>Back To Quizes</span></Button>
+                        <Button onClick={() => navigate('/profile')} colorScheme='teal' alignItems={'center'} gap={3} display={'flex'}><span>Visit Profile</span><GrLinkNext /></Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>

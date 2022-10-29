@@ -32,7 +32,7 @@ const Options = ({ x, correctAnswer, choosedOption, correct, clicked, setChoosed
                 setCorrect(false);
             }
         }} size='lg'  {...att2} colorScheme='teal' {...att} borderColor={'teal'} className={`${((correctAnswer !== x && clicked && choosedOption === x) || (previousSelcted.isDone === false)) ? 'bg-[#F92600]' : ((correctAnswer === x && clicked) || (x === correctAnswer && ((quizeNo !== count) || ((quizeNo + 1 === questions.length) && finish)))) ? 'bg-[#3EC65D]' : 'bg-[#EFEFEF]'} relative rounded-md py-7 px-4 flex`}>
-            <p className='absolute font-bold top-1/2 -translate-y-1/2 text-center w-[90%]'>{x}</p>
+            <p className='absolute font-bold top-1/2" -translate-y-1/2 text-center w-[90%]'>{x}</p>
         </Checkbox>
     );
 };

@@ -5,6 +5,7 @@ import { RouterProvider } from 'react-router-dom';
 import { routes } from './utils/routes';
 import OutletLoader from './utils/OutletLoader';
 import { colors } from './utils/Constants';
+import 'animate.css';
 import 'aos/dist/aos.css';
 Aos.init({ offset: 120, duration: 500, });
 

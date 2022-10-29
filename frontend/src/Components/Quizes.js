@@ -2,7 +2,6 @@ import { Button } from '@chakra-ui/react';
 import React from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import quizebanner from '../Assets/unnamed.png';
-import Switcher from '../utils/Switcher';
 
 const Quizes = () => {
     const data = useLoaderData().data;
